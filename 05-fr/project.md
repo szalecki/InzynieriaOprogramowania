@@ -50,11 +50,13 @@ Osoba chcąca zakupić produkt na aukcji.
 
 [Sprzedający](#ac1):
 * [UC1](#uc1): Wystawienie produktu na aukcję
-* ...
+* [UC3](#uc3): Zakończenie aukcji
+* [UC4](#uc4): Przekazanie produktu
 
 [Kupujący](#ac2)
-* ...
-
+* [UC2](#uc2): Przedstawienie nowej oferty
+* [UC3](#uc3): Zakończenie aukcji
+* [UC4](#uc4): Przekazanie produktu
 ---
 <a id="uc1"></a>
 ### UC1: Wystawienie produktu na aukcję
@@ -77,19 +79,53 @@ Osoba chcąca zakupić produkt na aukcji.
 ---
 
 <a id="uc2"></a>
-### UC2: ...
+### UC2: Przedstawienie nowej oferty
 
-**Aktorzy:** [Sprzedający](#ac1), [Kupujący](#ac2), ...
+**Aktorzy:** [Kupujący](#ac2)
 
 **Scenariusz główny:**
-1. ...
+1. [Kupujący](#ac2) podaje kwote ([BR2](#br2))
+2. System sprawdza czy kwota jest wyższą od aktualnej oferty
+3. System przyjmuje nową oferte
 
 **Scenariusze alternatywne:** 
 
-1.A. ...
-* 4.A.1. ...
+2.A. Podano kwotę niższą niż aktualna oferta ([BR2](#br2))
+* 2.A.1. System odrzuca oferte
+* 2.A.2. Przejdź do kroku 1
 
 ---
+
+<a id="uc3"></a>
+### UC3: Zakończenie aukcji
+
+**Aktorzy:** [Sprzedający](#ac1), [Kupujący](#ac2)
+
+**Scenariusz główny:**
+1. System sprawdza, czy kupujący wygrał aukcje ([BR2](#br2))
+2. [Kupującego](#ac2) podaje dane do wysyłki 
+3. System weryfikuje dane do wysyłki 
+4. [Kupujący](#ac2) realizuje płatność
+5. System przekazuje dane do wysyłki [Sprzedającemu](#ac1)
+
+**Scenariusze alternatywne:**
+
+3.A. [Kupujący](#ac2) podał błędne dane do wysyłki
+* 3.A.1 System informuje, że podane dane są błędne
+* 3.A.2 Przejdź do kroku 2
+
+4.A. Płatność odrzucona
+* 4.A.1 Przejdź do kroku 4
+---
+<a id="uc4"></a>
+### UC4: Przekazanie produktu
+
+**Aktorzy:** [Sprzedający](#ac1), [Kupujący](#ac2)
+
+**Scenariusz główny:**
+1. [Sprzedający](#ac1) nadał paczkę z produktem
+2. [Kupujący](#ac2) odebrał paczkę
+
 
 ## Obiewkty biznesowe (inaczje obiekty dziedzinowe lub informatycjne)
 
@@ -100,6 +136,14 @@ Aukcja jest formą zawierania transakcji kupna-sprzedaży, w której Sprzedając
 ### BO2: Produkt
 
 Fizyczny lub cyfrowy obiekt, który ma zostać sprzedany w ramach aukcji.
+
+### BO3: Dane do wysyłki
+
+dane do wysyłki zakupionego produktu
+
+### BO4: Paczka
+
+Produkt i dane do wysyłki
 
 ## Reguły biznesowe
 
@@ -113,6 +157,10 @@ Złożenie oferty wymaga zaproponowania kwoty wyższej niż aktualnie oferowana 
 ### BR2: Rozstrzygnięcie aukcji
 
 Aukcję wygrywa ten z [Kupujący](#ac2)ch, który w momencie jej zakończenia (upłynięcia czasu) złożył najwyższą ofertę.
+
+<a id="br3"></a>
+### BR3: Przekazanie produktu
+[Sprzedający](#ac1) musi przekazać produktu kupującemu, np nadajac paczke
 
 ## Macierz CRUDL
 
